@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <title>Increase Count</title>
+
+  <style>
+
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    .stats, .about{
+      width:100%;
+      height:100vh;
+      padding: 15%;
+      background-color: #eee;
+    }
+    .stats-title{
+      text-align: center;
+    }
+    .stats-container{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .stat-card{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      width:24%;
+      padding: 60px 0;
+      font-size: 24px;
+      border-radius: 8px;
+    }
+    .el-count{
+      margin: 10px 0;
+      font-weight: 800;
+    }
+    .card-title{
+      color: #65b8d7;
+    }
+
+
+  </style>
+
+
+</head>
+<body>
+  <section class="about">
+
+  </section>
+  <section class="stats">
+    <h1 class="stats-title">Our Stats</h1>
+    <div class="stats-container">
+      <div class="stat-card">
+        <i class="fa fa-users"></i>
+        <span class="el-count" data-count="349">0</span>
+        <span class="card-title">Clients</span>
+      </div>
+      <div class="stat-card">
+        <i class="fa fa-code"></i>
+        <span class="el-count" data-count="488">0</span>
+        <span class="card-title">Projects</span>
+      </div>
+      <div class="stat-card">
+        <i class="fa fa-globe-europe"></i>
+        <span class="el-count" data-count="120">0</span>
+        <span class="card-title">Countries</span>
+      </div>
+      <div class="stat-card">
+        <i class="fa fa-money-bill-alt"></i>
+        <span class="el-count" data-count="765">0</span>
+        <span class="card-title">Money</span>
+      </div>
+    </div>
+  </section>
+
+
+
+  <script>
+
+    //Select elements
+    const statsSection = document.querySelector('.stats'),
+          allElementsCount = document.querySelectorAll('.stat-card .el-count');
+    let funcStarted = false;   //to check if function startCount started or not
+
+    //add onscroll event to start the counting function when user reach the stats section
+    window.addEventListener('scroll', ()=>{
+      if(pageYOffset >=  statsSection.getBoundingClientRect().y ){
+        if(!funcStarted) allElementsCount.forEach(elCount => startCount(elCount) )
+        funcStarted = true
+      }
+    })
+
+    //counting function
+    const startCount = el => {
+      const fullNumber = el.dataset.count;  //getting the number using the data attribute
+      const interval = setInterval(()=>{  //using setInterval function to increase the numbers every x millisecond
+        el.textContent++
+        if(el.textContent == fullNumber) clearInterval(interval)
+      }, 2000/fullNumber) // divise the time on the number to let all stats numbers ends counting in the same time
+    }
+
+  </script>
+
+</body>
+</html>
